@@ -1,0 +1,1625 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Tut_expense_project_006",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/signup": {
+      "post": {
+        "summary": "Sign up user",
+        "deprecated": false,
+        "description": "# What does this do?\nCreates a new user and generates a JWT token for it\nhash the password\n\n# needed data\n- username\n- email\n- password\nNote: you don't need to send ID because it's automaticlly generated",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_email": {
+                    "type": "string"
+                  },
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "user_email",
+                  "user_name",
+                  "password"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "With this data, you will get a JWT token in your cookies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "integer"
+                    },
+                    "user_email": {
+                      "type": "string"
+                    },
+                    "user_name": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "user_id",
+                    "user_email",
+                    "user_name",
+                    "password"
+                  ]
+                },
+                "example": {
+                  "user_id": 8306887585162435,
+                  "user_email": "Noble_Kunze@yahoo.com",
+                  "Username": "Pam O'Reilly",
+                  "password": "dMsD4ZYbjShiq1w"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "description": "if one error you will get message string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "2": {
+                    "summary": "message as string",
+                    "value": {
+                      "name": "validation error",
+                      "message": "in officia laborum dolor"
+                    }
+                  },
+                  "3": {
+                    "summary": "message as array",
+                    "value": {
+                      "name": "app error",
+                      "message": [
+                        "your username is wrong",
+                        "password is wrong format"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login in user",
+        "deprecated": false,
+        "description": "# What does this API do?\n- validate user\n- create user JWT token\n\n## What do you need to use this API?\n1. to actually have an account, `use the sign-up user API`\n2. Send correct Email & password",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "user_email",
+                  "password"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "integer"
+                    },
+                    "user_email": {
+                      "type": "string"
+                    },
+                    "user_name": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "user_id",
+                    "user_email",
+                    "user_name",
+                    "password"
+                  ]
+                },
+                "example": {
+                  "user_id": 8402868563864543,
+                  "user_email": "Wanda.Reichel18@gmail.com",
+                  "Username": "Guadalupe Ward",
+                  "password": "MvsBKSDK4sreDdb"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Will you get 400 because of : \n1. Email is not found (you will have to create an account or chick the email)\n2. Wrong password\n3. Something went wrong with creating the JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "description": "if one error you will get message string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "2": {
+                    "summary": "message as array",
+                    "value": {
+                      "name": "app error",
+                      "message": [
+                        "password is wrong format",
+                        "your username is wrong",
+                        "password is wrong format"
+                      ]
+                    }
+                  },
+                  "3": {
+                    "summary": "message as string",
+                    "value": {
+                      "name": "app error",
+                      "message": "dolore non cupidatat dolor"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/logout": {
+      "get": {
+        "summary": "logout (deleting cookie)",
+        "deprecated": false,
+        "description": "# What does this API do?\n- deleting the cookie that has the JWT of the user\n\n# What do you need to use this API\n1. to have the JWT that proves that the user is already authenticated\n2. The ID in the JWT is to be valid",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "example": {
+                  "message": "user logged out"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "APP error",
+                  "message": "user is not authenticated"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/user": {
+      "patch": {
+        "summary": "Update user",
+        "deprecated": false,
+        "description": "# What does this APi do?\nupdate the user data (all data or a particular field)\n\n# What do you need?\n1. to actually have an account\n2. to have the JWT token\n3. valid values for updating\n\n# todo future adds\npassword confirmation",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_email": {
+                    "type": "string"
+                  },
+                  "Username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "password_confrimation": {
+                    "type": "string",
+                    "description": "should be equal to the old password"
+                  }
+                },
+                "required": [
+                  "password_confrimation"
+                ]
+              },
+              "example": {
+                "user_email": "Rico.Blanda-Crist@gmail.com",
+                "Username": "Della Keeling",
+                "password": "dg6_6YFdmK9OG8x",
+                "password_confrimation": "fYiS_i0yiz519F0"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "example": {
+                  "message": "User update successfully"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Will you get error when: \n1. wrong data to update\n2. JWT failed\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "description": "if one error you will get message string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "message as string",
+                    "value": {
+                      "name": "app error",
+                      "message": "laborum nostrud in"
+                    }
+                  },
+                  "2": {
+                    "summary": "message as array",
+                    "value": {
+                      "name": "validation error",
+                      "message": [
+                        "your username is wrong",
+                        "your email is wrong"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "Delete user ",
+        "deprecated": false,
+        "description": "# What does this APi do?\n- deletes user permanently from the website!! `take care with this`\n\n# What do you need?\n1. to actually have an account\n2. to have the JWT token \n\n# todo future adds\npassword confirmation",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "example": {
+                  "message": "User is deleted successfully"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Will you get an error because of: \n1. JWT error problem\n2. user id is not a valid id ( something other integer)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "validation error",
+                  "message": "Id is wrong"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "APP error",
+                  "message": "user is not authenticated"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/expense": {
+      "get": {
+        "summary": "Get all user expenses",
+        "deprecated": false,
+        "description": "# What does this API do?\nFetch all expense that the user have\n\n# What do you need \n1. You're JWT token is essential",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "retrive spicific expenses for particular category",
+            "required": false,
+            "example": "shopping",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "total",
+            "in": "query",
+            "description": "return the total amount of all expenses",
+            "required": false,
+            "example": "true",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expense_id": {
+                            "type": "integer"
+                          },
+                          "expense_category": {
+                            "type": "string",
+                            "description": "choice on the category in the mock"
+                          },
+                          "expense_amount": {
+                            "type": "string"
+                          },
+                          "expense_date": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer",
+                            "description": "it should be the same as the current user id who is using the app"
+                          }
+                        },
+                        "required": [
+                          "expense_id",
+                          "expense_category",
+                          "expense_amount",
+                          "expense_date",
+                          "user_id"
+                        ]
+                      },
+                      "description": "array of objects"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "example": {
+                  "data": [
+                    {
+                      "expense_id": 1796548109371195,
+                      "expense_category": "food",
+                      "expense_amount": 6119952490033248,
+                      "expense_date": "2025-09-24T04:59:07.844Z",
+                      "user_id": "5659401418423744"
+                    },
+                    {
+                      "expense_id": 6128637755341540,
+                      "expense_category": "home",
+                      "expense_amount": 8028155143351944,
+                      "expense_date": "2025-09-24T04:59:07.846Z",
+                      "user_id": "3284410580881973"
+                    },
+                    {
+                      "expense_id": 6170485762025540,
+                      "expense_category": "home",
+                      "expense_amount": 4351663374780505,
+                      "expense_date": "2025-09-24T04:59:07.847Z",
+                      "user_id": "4106779335239439"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "You will get an error because of: \n1. wrong ID\n2. JWT error with decoding",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "JWT error",
+                  "message": "JWT error"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "post": {
+        "summary": "create new expense",
+        "deprecated": false,
+        "description": "# What does this API do?\nCreate a new expense\n\n# What do you need \n1. You're JWT token is essential\n2. you're data is  to be valid",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expense_category": {
+                    "type": "string",
+                    "description": "choice on the category in the mock"
+                  },
+                  "expense_amount": {
+                    "type": "number"
+                  },
+                  "expense_date": {
+                    "type": "string",
+                    "description": "If you don't provide the data, the app will add today's date"
+                  }
+                },
+                "required": [
+                  "expense_category",
+                  "expense_amount"
+                ]
+              },
+              "example": {
+                "expense_category": "food",
+                "expense_amount": 50.5,
+                "expense_date": "2025-09-24T05:11:20.077Z"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "expense_id": {
+                      "type": "integer"
+                    },
+                    "expense_category": {
+                      "type": "string",
+                      "description": "choice on the category in the mock"
+                    },
+                    "expense_amount": {
+                      "type": "string"
+                    },
+                    "expense_date": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "integer",
+                      "description": "it should be the same as the current user id who is using the app"
+                    }
+                  },
+                  "required": [
+                    "expense_id",
+                    "expense_category",
+                    "expense_amount",
+                    "expense_date",
+                    "user_id"
+                  ]
+                },
+                "example": {
+                  "expense_id": 824984898371307,
+                  "expense_category": "home",
+                  "expense_amount": 1000000,
+                  "expense_date": "2025-09-24T05:16:43.663Z",
+                  "user_id": "14473640311082"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "You will get an error because of: \n1. Wrong data or you don't all the required data \n2. JWT error with decoding",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "description": "if one error you will get message string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "2": {
+                    "summary": "message as string",
+                    "value": {
+                      "name": "app error",
+                      "message": "deserunt quis"
+                    }
+                  },
+                  "3": {
+                    "summary": "message as array",
+                    "value": {
+                      "name": "app error",
+                      "message": [
+                        "your amount is wrong",
+                        "your id is wrong"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "APP error",
+                  "message": "user is not authenticated"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "delete all user expenses",
+        "deprecated": false,
+        "description": "# What does this API do?\nDeletes all user expenses. `Take care when using it.`\n\n# What do you need \n1. You're JWT token is essential\n",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Something went wrong with the DB",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "Mysql error",
+                  "message": "Wrong syntax"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "APP error",
+                  "message": "user is not authenticated"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/expense/{expenseId}": {
+      "patch": {
+        "summary": "Update Existing Expense",
+        "deprecated": false,
+        "description": "# What does this API do?\nUpdate all fields or some fields\n\n# What do you need \n1. Your JWT token is essential\n2. Your data is  to be valid\n3. To send data (don't send empty data)",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expenseId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expense_category": {
+                    "type": "string",
+                    "description": "choice on the category in the mock"
+                  },
+                  "expense_amount": {
+                    "type": "number"
+                  },
+                  "expense_date": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "expense_category": "food",
+                "expense_amount": 50.5,
+                "expense_date": "2025-09-24T05:11:20.077Z"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "expense_id": {
+                      "type": "integer"
+                    },
+                    "expense_category": {
+                      "type": "string",
+                      "description": "choice on the category in the mock"
+                    },
+                    "expense_amount": {
+                      "type": "string"
+                    },
+                    "expense_date": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "integer",
+                      "description": "it should be the same as the current user id who is using the app"
+                    }
+                  },
+                  "required": [
+                    "expense_id",
+                    "expense_category",
+                    "expense_amount",
+                    "expense_date",
+                    "user_id"
+                  ]
+                },
+                "example": {
+                  "expense_id": 824984898371307,
+                  "expense_category": "home",
+                  "expense_amount": 1000000,
+                  "expense_date": "2025-09-24T05:16:43.663Z",
+                  "user_id": "14473640311082"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "You will get an error because of: \n1. Wrong data or you don't all the required data \n2. JWT error with decoding",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "description": "if one error you will get message string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "2": {
+                    "summary": "message as string",
+                    "value": {
+                      "name": "app error",
+                      "message": "deserunt quis"
+                    }
+                  },
+                  "3": {
+                    "summary": "message as array",
+                    "value": {
+                      "name": "app error",
+                      "message": [
+                        "your amount is wrong",
+                        "your id is wrong"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "APP error",
+                  "message": "user is not authenticated"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "delete a particluar expense",
+        "deprecated": false,
+        "description": "# What does this API do?\nDeletes expense with specific ID\n\n# What do you need \n1. You're JWT token is essential\n2. Expense's ID is right",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": true,
+            "example": "{{JWT_token}}",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expenseId",
+            "in": "path",
+            "description": "Id from 1",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Something went wrong with the DB",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "Mysql error",
+                  "message": "Wrong syntax"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "APP error",
+                  "message": "user is not authenticated"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "name": "server down",
+                  "message": "500 server down, please try later"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "user_email": {
+            "type": "string"
+          },
+          "user_name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "user_id",
+          "user_email",
+          "user_name",
+          "password"
+        ]
+      },
+      "Expense": {
+        "type": "object",
+        "properties": {
+          "expense_id": {
+            "type": "integer"
+          },
+          "expense_category": {
+            "type": "string",
+            "description": "choice on the category in the mock"
+          },
+          "expense_amount": {
+            "type": "string"
+          },
+          "expense_date": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "it should be the same as the current user id who is using the app"
+          }
+        },
+        "required": [
+          "expense_category",
+          "expense_amount",
+          "expense_id",
+          "expense_date",
+          "user_id"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}
