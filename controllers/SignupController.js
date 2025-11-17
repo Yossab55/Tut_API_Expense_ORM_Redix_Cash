@@ -10,7 +10,7 @@ const SignupController = {
     const data = req.body;
     const { error } = userValidator(data);
     if (error) throw error;
-    const user = await UserModel.save(data);
+    const user = await UserModel.saveUser(data);
     const payload = { id: user.user_id };
     const token = await JWT.createToken(payload);
     createCookie(res, token);

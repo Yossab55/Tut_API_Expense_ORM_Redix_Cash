@@ -40,39 +40,41 @@ function getDateInMySQLStanders(dateString) {
 
 export { getDateInMySQLStanders };
 
-function stringBinarySearch(list, item) {
-  if (list.length == 0) return undefined;
-  if (list.length == 1) {
-    const { user_email } = list[0];
-    if (user_email == item) return item;
-    return undefined;
-  }
-  const middleIndex = parseInt(list.length / 2);
-  const { user_email } = list[middleIndex];
-  /**
-   * 0 => equals => found item
-   * -1 => middle Item is before item => go right
-   * 1 => item is before middle item => go left
-   */
-  const test = user_email.localeCompare(item);
-  if (test == 0) return item;
-  if (test == -1) {
-    list = list.slice(middleIndex);
-    return stringBinarySearch(list, item);
-  }
-  if (test == 1) {
-    list = list.slice(0, middleIndex);
-    return stringBinarySearch(list, item);
-  }
-  return undefined;
-}
-export { stringBinarySearch };
+//deprecated
+// function stringBinarySearch(list, item) {
+//   if (list.length == 0) return undefined;
+//   if (list.length == 1) {
+//     const { user_email } = list[0];
+//     if (user_email == item) return item;
+//     return undefined;
+//   }
+//   const middleIndex = parseInt(list.length / 2);
+//   const { user_email } = list[middleIndex];
+//   /**
+//    * 0 => equals => found item
+//    * -1 => middle Item is before item => go right
+//    * 1 => item is before middle item => go left
+//    */
+//   const test = user_email.localeCompare(item);
+//   if (test == 0) return item;
+//   if (test == -1) {
+//     list = list.slice(middleIndex);
+//     return stringBinarySearch(list, item);
+//   }
+//   if (test == 1) {
+//     list = list.slice(0, middleIndex);
+//     return stringBinarySearch(list, item);
+//   }
+//   return undefined;
+// }
+// export { stringBinarySearch };
 
 function fieldsToCheckUndefined(fieldsToChick) {
-  const fields = [];
+  const result = {};
   Object.keys(fieldsToChick).forEach((field) => {
-    if (fieldsToChick[field]) fields.push(field);
+    const value = fieldsToChick[field];
+    if (value) result[field] = value;
   });
-  return fields;
+  return result;
 }
 export { fieldsToCheckUndefined };

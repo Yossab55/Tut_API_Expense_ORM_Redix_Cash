@@ -6,10 +6,10 @@ import { UserModel } from "../models/UserModel.js";
 import { AppError } from "../source/error/AppError.js";
 import { GOOD_RESPONSE } from "../utils/constants/ResponseCode.js";
 const LoginController = {
-  login: async function login(req, res, next) {
+  login: async function login(req, res) {
     const data = req.body;
-    const filters = ["user_email", "=", `'${data.user_email}'`];
-    const user = await UserModel.getUserWith(filters);
+    const filter = { user_email: data.user_email };
+    const user = await UserModel.getUserByFilter(filter);
     if (!user) {
       throw AppError("User not found please sign up");
     }

@@ -12,6 +12,6 @@ const knexConfig = {
   },
 };
 
-knex(knexConfig);
+const DB = knex(knexConfig);
 
-export { knex };
+export { DB };

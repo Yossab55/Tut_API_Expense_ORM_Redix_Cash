@@ -23,23 +23,23 @@ ON UPDATE CASCADE
 ON DELETE CASCADE;
 
 
-DELIMITER $$
-CREATE PROCEDURE find_user(IN user_param_id INT)
-  BEGIN
-    SELECT * 
-    FROM Users
-    WHERE user_id = user_param_id;
-  END $$
-DELIMITER ;
+-- DELIMITER $$
+-- CREATE PROCEDURE find_user(IN user_param_id INT)
+--   BEGIN
+--     SELECT * 
+--     FROM Users
+--     WHERE user_id = user_param_id;
+--   END $$
+-- DELIMITER ;
 
 
-DELIMITER $$
-CREATE PROCEDURE user_today_expenses(IN user_param_id INT)
-BEGIN
-  SELECT *
-  FROM Expenses
-  WHERE user_id = user_param_id 
-  AND
-  DATE(expense_date) = CURDATE();
-END $$
-DELIMITER ;
+-- DELIMITER $$
+-- CREATE PROCEDURE user_today_expenses(IN user_param_id INT)
+-- BEGIN
+--   SELECT *
+--   FROM Expenses
+--   WHERE user_id = user_param_id 
+--   AND
+--   DATE(expense_date) = CURDATE();
+-- END $$
+-- DELIMITER ;
