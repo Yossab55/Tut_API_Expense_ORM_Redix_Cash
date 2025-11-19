@@ -28,7 +28,10 @@ const ExpenseController = {
       last_period = data.last_period;
     } else last_period = new Date();
     const userId = req.user.id;
-    const rows = await ExpenseModel.getLastPeriodExpenses(userId, last_period);
+    const rows = await ExpenseModel.getLastPeriodBeforeNowExpense(
+      userId,
+      last_period
+    );
     return res.status(GOOD_RESPONSE).send({ data: rows });
   },
   getLastPeriodExpenseGroupByCategory:
@@ -42,7 +45,7 @@ const ExpenseController = {
         last_period = data.last_period;
       } else last_period = new Date();
       const userId = req.user.id;
-      const rows = await ExpenseModel.getLastPeriodExpensesFilterByCategories(
+      const rows = await ExpenseModel.getLastPeriodAndCategoryExpense(
         userId,
         last_period,
         categories
@@ -51,7 +54,7 @@ const ExpenseController = {
     },
   getTotalTodayAmount: async function getTotalTodayAmount(req, res) {
     const userId = req.user.id;
-    const rows = await ExpenseModel.getTodayTotalAmountGroupByCategory(userId);
+    const rows = await ExpenseModel.getTodayExpensesGroupByCategory(userId);
     res.status(GOOD_RESPONSE).send({ data: rows });
   },
   saveNewExpense: async function saveNewExpense(req, res) {
@@ -61,7 +64,7 @@ const ExpenseController = {
     console.log(data);
     const { error } = expenseValidator(data);
     if (error) throw error;
-    const expenseData = await ExpenseModel.saveNewExpense(data);
+    const expenseData = await ExpenseModel.saveExpense(data);
     res.status(GOOD_RESPONSE).send(expenseData);
   },
   deleteExpense: async function deleteExpense(req, res) {
