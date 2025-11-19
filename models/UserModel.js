@@ -78,8 +78,7 @@ UserModel.updateUser = async function updateUser(newData) {
     user_name,
     password,
   });
-  console.log(updatedFields);
-  console.log(user_id);
+
   const result = await this.from(this.table)
     .where({ user_id })
     .update(updatedFields);
