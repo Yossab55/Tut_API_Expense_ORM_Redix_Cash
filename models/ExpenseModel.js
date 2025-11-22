@@ -29,7 +29,6 @@ ExpenseModel.saveExpense = async function saveExpense(data) {
 
   return user;
 };
-
 ExpenseModel.getTodayExpenses = async function getTodayExpenses(user_id) {
   const todayExpenses = await this.query().where({
     user_id,
@@ -58,11 +57,15 @@ ExpenseModel.getLastPeriodAndCategoryExpense =
   ) {
     const expenses = await this.query()
       .where({ user_id })
-      .andWhereBetween("expense_date", [
-        getDateInMySQLStanders(lastPeriod),
-        getCurrentDate(),
-      ])
-      .andWhere("expense_category", categories);
+      .andWhere(function returnWhereIn() {
+        this.whereIn("expense_category", categories);
+      })
+      .andWhere(function returnBetween() {
+        this.whereBetween("expense_date", [
+          getDateInMySQLStanders(lastPeriod),
+          getCurrentDate(),
+        ]);
+      });
 
     return expenses;
   };

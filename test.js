@@ -1,9 +1,13 @@
-function addTwoNumbers(x, y) {
-  x = Number(x);
-  // y = Number(y);
+function foo(x) {
+  // start doing something that could take a while
 
-  return x + y;
+  //make a 'listener' event notification
+
+  return listener;
 }
 
-console.log(addTwoNumbers(21, 21)); //42;
-console.log(addTwoNumbers("21", 21)); //42 if you don't User Number it would be 2121
+var evt = foo(42);
+
+evt.on("completions", function keepGoing() {});
+
+evt.on("failure", function stopAndHandelError() {});

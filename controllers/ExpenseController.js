@@ -39,7 +39,7 @@ const ExpenseController = {
       const data = req.body;
       if (!req.query.category)
         throw AppError("You need specifics categories", BAD_REQUEST);
-      const categories = req.query.category.split("&");
+      const categories = req.query.category.split(",");
       let last_period;
       if (data) {
         last_period = data.last_period;
