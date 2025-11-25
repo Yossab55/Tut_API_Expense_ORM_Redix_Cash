@@ -4,6 +4,7 @@
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-lightgrey?logo=express&logoColor=white)](https://expressjs.com/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.x-blue?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![JWT](https://img.shields.io/badge/JWT-Authentication-orange?logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Yossab55/Tut_API_Expense_ORM_Redix_Cash)
 [![License](https://img.shields.io/badge/License-MIT-brightgreen)](LICENSE)
 
 A comprehensive RESTful API for tracking and managing expenses.  
