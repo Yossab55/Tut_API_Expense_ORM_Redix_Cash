@@ -1,13 +1,21 @@
 function foo(x) {
-  // start doing something that could take a while
+  // do something
 
-  //make a 'listener' event notification
-
-  return listener;
+  return new Promise(function (resolve, reject) {
+    //do something
+  });
 }
 
-var evt = foo(42);
+function bar() {
+  // hey promise is fluffed
+}
 
-evt.on("completions", function keepGoing() {});
+function obsBar() {
+  //something went wrong :(
+}
 
-evt.on("failure", function stopAndHandelError() {});
+var p = foo(42);
+
+p.then(bar, obsBar);
+
+// p.then(baz, obsBaz) will take the state from p not from p.then(bar)

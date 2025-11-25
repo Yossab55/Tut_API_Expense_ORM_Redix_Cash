@@ -12,19 +12,36 @@ function makeItPromisify(fn) {
 
 export { makeItPromisify };
 
-function getCurrentDate() {
-  /**
-   * because JS date format defers from MySQL date format
-   * so I'm modifying it to fit the validation
-   */
-  const date = new Date(Date.now());
+function getDayLongPeriod() {
+  const now = new Date();
+  const start = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      0,
+      0,
+      0,
+      0
+    )
+  ).toISOString();
 
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${
-    date.toTimeString().split(" ")[0]
-  }`;
+  const end = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate() + 1,
+      0,
+      0,
+      0,
+      0
+    )
+  ).toISOString();
+  console.log(start);
+  return [start, end];
 }
 
-export { getCurrentDate };
+export { getDayLongPeriod };
 
 function getDateInMySQLStanders(dateString) {
   /**

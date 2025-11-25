@@ -1,5 +1,5 @@
 import {
-  getCurrentDate,
+  getDayLongPeriod,
   getDateInMySQLStanders,
   fieldsToCheckUndefined,
 } from "../utils/helpers.js";
@@ -30,10 +30,14 @@ ExpenseModel.saveExpense = async function saveExpense(data) {
   return user;
 };
 ExpenseModel.getTodayExpenses = async function getTodayExpenses(user_id) {
-  const todayExpenses = await this.query().where({
-    user_id,
-    expense_date: getCurrentDate(),
-  });
+  const [start, end] = getDayLongPeriod();
+  const todayExpenses = await this.query()
+    .where({
+      user_id: user_id,
+    })
+    .andWhere("expense_date", ">=", start)
+    .andWhere("expense_date", "<", end);
+  console.log(todayExpenses);
   return todayExpenses;
 };
 

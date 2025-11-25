@@ -1,10 +1,10 @@
 import { Joi } from "../../interface/joi.js";
-import { getCurrentDate } from "../../../utils/helpers.js";
+import { getDayLongPeriod } from "../../../utils/helpers.js";
 
 const ExpenseSchema = Joi.createObject({
   expense_category: Joi.between(2, 70).required(),
   expense_amount: Joi.number().required(),
-  expense_date: Joi.date().default(getCurrentDate()),
+  expense_date: Joi.date().default(getDayLongPeriod()[0]),
   user_id: Joi.number().required(),
 });
 

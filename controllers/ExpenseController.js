@@ -1,3 +1,4 @@
+import { saveDataInCache } from "../middlewares/CachingMiddlewares.js";
 import { ExpenseModel } from "../models/ExpenseModel.js";
 import { AppError } from "../source/error/AppError.js";
 import {
@@ -19,6 +20,8 @@ const ExpenseController = {
   getAllTodayExpense: async function getAllTodayExpense(req, res) {
     const userId = req.user.id;
     const rows = await ExpenseModel.getTodayExpenses(userId);
+    console.log(rows);
+    await saveDataInCache(rows);
     return res.status(GOOD_RESPONSE).send({ data: rows });
   },
   getLastPeriodExpense: async function getLastPeriodExpense(req, res) {
