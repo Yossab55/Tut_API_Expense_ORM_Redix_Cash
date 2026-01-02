@@ -114,7 +114,7 @@ Scalable and maintainable codebase
 
 LinkedIn: [Yossab Samouel](https://www.linkedin.com/in/yossab-samouel5/)
 
-Email: mailto:yossabsamouelwork@gmail.com
+Email:yossabsamouelwork@gmail.com
 
 🔥 This project demonstrates proficiency in backend API development, relational database design, authentication, and modern Node.js ecosystem.
 
